@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
-class DeleteController extends Controller
+class DeleteController extends BaseController
 {
     public function __invoke(Post $post)
     {
