@@ -22,7 +22,7 @@ Route::group(['namespace'=> 'App\Http\Controllers\Main'], function () {
     Route::get('/', 'IndexController')->name('main.index');
 });
 
-Route::group(['namespace'=> 'App\Http\Controllers\Admin', 'prefix'=> 'admin'], function () {
+Route::group(['namespace'=> 'App\Http\Controllers\Admin', 'prefix'=> 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::group(['namespace'=> 'Main'], function () {
         Route::get('/', 'IndexController')->name('admin.main.index');
     });
@@ -55,6 +55,16 @@ Route::group(['namespace'=> 'App\Http\Controllers\Admin', 'prefix'=> 'admin'], f
         Route::get('/{tag}/edit', 'EditController')->name('admin.tag.edit');
         Route::put('/{tag}', 'UpdateController')->name('admin.tag.update');
         Route::delete('/{tag}', 'DeleteController')->name('admin.tag.delete');
+    });
+
+    Route::group(['namespace'=> 'User', 'prefix' => 'users'], function () {
+        Route::get('/', 'IndexController')->name('admin.user.index');
+        Route::get('/create', 'CreateController')->name('admin.user.create');
+        Route::post('/', 'StoreController')->name('admin.user.store');
+        Route::get('/{user}', 'ShowController')->name('admin.user.show');
+        Route::get('/{user}/edit', 'EditController')->name('admin.user.edit');
+        Route::put('/{user}', 'UpdateController')->name('admin.user.update');
+        Route::delete('/{user}', 'DeleteController')->name('admin.user.delete');
     });
 });
 
